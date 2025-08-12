@@ -1,0 +1,23 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = null; // Or set to "_Layout" if you have a master layout file
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@Model.Value("pageTitle")</title>
+</head>
+<body>
+
+    <header>
+        <h1>@Model.Value("pageTitle")</h1>
+    </header>
+
+    <main>
+        @Model.Value("mainBodyContent") <!-- This will output your rich text -->
+    </main>
+
+</body>
+</html>
