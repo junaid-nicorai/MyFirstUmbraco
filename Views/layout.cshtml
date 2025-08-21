@@ -19,32 +19,42 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@Model.Value("pageTitle", fallback: Fallback.ToAncestors)</title>
+    <link rel="stylesheet" href="/css/Stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        @if (Model.HasValue("pageImage", fallback: Fallback.ToAncestors))
-        {
-            var pageImage = Model.Value<IPublishedContent>("pageImage", fallback: Fallback.ToAncestors);
-            if (pageImage != null)
+        <div class="header-content">
+            @if (Model.HasValue("pageImage", fallback: Fallback.ToAncestors))
             {
-                <img src="@pageImage.Url()" alt="@pageImage.Name" width="300" />
-            }
-        }
-        <h1>@Model.Value("pageTitle", fallback: Fallback.ToAncestors)</h1>
-        <h2>@Model.Value("subtitle", fallback: Fallback.ToAncestors)</h2>
-        
-        <nav>
-            <ul>
-                @foreach (var navPage in navPages)
+                var pageImage = Model.Value<IPublishedContent>("pageImage", fallback: Fallback.ToAncestors);
+                if (pageImage != null)
                 {
-                    <li>
-                        <a href="@navPage.Url()">@navPage.Name</a>
-                    </li>
+                    <img src="@pageImage.Url()" alt="@pageImage.Name" />
                 }
-            </ul>
-        </nav>
+            }
+            
+            <div class="hero-text">
+                <h1>@Model.Value("pageTitle", fallback: Fallback.ToAncestors)</h1>
+                <h2>@Model.Value("subtitle", fallback: Fallback.ToAncestors)</h2>
+            </div>
+            
+            <nav>
+                <ul>
+                    @foreach (var navPage in navPages)
+                    {
+                        <li>
+                            <a href="@navPage.Url()">@navPage.Name</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
@@ -52,7 +62,7 @@
     </main>
 
     <footer>
-        <p>This is the footer.</p>
+        <p>&copy; @DateTime.Now.Year - Built with Umbraco. All rights reserved.</p>
     </footer>
 
 </body>
