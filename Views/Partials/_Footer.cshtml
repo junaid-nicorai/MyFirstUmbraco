@@ -1,0 +1,33 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    var footerLinks = Model.Value<IEnumerable<BlockListItem>>("footerLinks", fallback: Fallback.ToAncestors);
+}
+<footer>
+    @if (footerLinks != null && footerLinks.Any())
+    {
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                @foreach (var block in footerLinks)
+                {
+                    var linkElement = (Link)block.Content;
+                    var links = linkElement.Value<IEnumerable<Umbraco.Cms.Core.Models.Link>>("url");
+                    var firstLink = links?.FirstOrDefault();
+
+                    if (firstLink != null)
+                    {
+                        <li>
+                            <a href="@firstLink.Url" target="@firstLink.Target">@firstLink.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+    <p>&copy; @DateTime.Now.Year - Built with Umbraco. All rights reserved.</p>
+</footer>

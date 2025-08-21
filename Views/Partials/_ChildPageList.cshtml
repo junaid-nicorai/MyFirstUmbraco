@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IPublishedContent>
+
+<div class="ChildListing">
+    <h1>Explore Our Site</h1>
+
+    @{
+        var childPages = Model.Children().Where(x => x.IsVisible());
+    }
+
+    <ul>
+        @{
+            if(childPages.Any()){
+              foreach(var child in childPages){
+                <li>
+                    <a href="@child.Url()">@child.Name</a>
+                </li>
+              }
+            }
+        }
+    </ul>
+</div>
+
+
+

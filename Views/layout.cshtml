@@ -28,42 +28,13 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-content">
-            @if (Model.HasValue("pageImage", fallback: Fallback.ToAncestors))
-            {
-                var pageImage = Model.Value<IPublishedContent>("pageImage", fallback: Fallback.ToAncestors);
-                if (pageImage != null)
-                {
-                    <img src="@pageImage.Url()" alt="@pageImage.Name" />
-                }
-            }
-            
-            <div class="hero-text">
-                <h1>@Model.Value("pageTitle", fallback: Fallback.ToAncestors)</h1>
-                <h2>@Model.Value("subtitle", fallback: Fallback.ToAncestors)</h2>
-            </div>
-            
-            <nav>
-                <ul>
-                    @foreach (var navPage in navPages)
-                    {
-                        <li>
-                            <a href="@navPage.Url()">@navPage.Name</a>
-                        </li>
-                    }
-                </ul>
-            </nav>
-        </div>
-    </header>
+    @await Html.PartialAsync("_Header")
 
     <main>
         @RenderBody()
     </main>
 
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Built with Umbraco. All rights reserved.</p>
-    </footer>
+    @await Html.PartialAsync("_Footer")
 
 </body>
 </html>
