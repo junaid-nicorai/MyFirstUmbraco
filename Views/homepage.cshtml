@@ -1,0 +1,38 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IPublishedContent>
+@* Removed specific Homepage model type and ContentModels alias to resolve compilation issues. *@
+@{
+    Layout = "layout.cshtml"; 
+}
+
+@* Check if the current page is a 'News Article' Document Type *@
+@if (Model.ContentType.Alias == "newsArticle")
+{
+    <div class="article-date">
+        <strong>Published on:</strong> @Model.Value("publicationDate")
+    </div>
+}
+
+@* This line was already here *@
+@Model.Value("mainContent")
+
+
+<div class="child-page-listing">
+    <h2>Explore Our Site</h2>
+    @{
+        // 1. Get all direct children of the CURRENT page (@Model)
+        var childPages = Model.Children().Where(x => x.IsVisible());
+    }
+
+    @if (childPages.Any())
+    {
+        <ul>
+            @foreach (var child in childPages)
+            {
+                <li>
+                    <a href="@child.Url()">@child.Name</a>
+                </li>
+            }
+        </ul>
+    }
+</div>
